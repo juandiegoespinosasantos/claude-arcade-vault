@@ -70,7 +70,7 @@ async function GameDetail({ params }: { params: Params }) {
             <Link href={`/juego/${game.id}/jugar`} className="btn xl pulse">
               ▶&nbsp; JUGAR AHORA
             </Link>
-            <Link href="/" className="btn ghost lg">
+            <Link href="/biblioteca" className="btn ghost lg">
               VOLVER AL VAULT
             </Link>
           </div>

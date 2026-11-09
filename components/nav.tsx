@@ -11,7 +11,8 @@ export function Nav() {
   const router = useRouter();
   const { user, logout } = useAuth();
 
-  const bibliotecaActive = pathname === "/" || pathname.startsWith("/juego");
+  const bibliotecaActive =
+    pathname.startsWith("/biblioteca") || pathname.startsWith("/juego");
   const salonActive = pathname.startsWith("/salon-de-la-fama");
   const accesoActive = pathname.startsWith("/acceso");
 
@@ -27,7 +28,7 @@ export function Nav() {
           </div>
         </Link>
         <div className="links">
-          <Link href="/" className={bibliotecaActive ? "active" : ""}>
+          <Link href="/biblioteca" className={bibliotecaActive ? "active" : ""}>
             Biblioteca
           </Link>
           <Link
@@ -72,7 +73,7 @@ export function Nav() {
           MENÚ
         </div>
         <Link
-          href="/"
+          href="/biblioteca"
           className={bibliotecaActive ? "active" : ""}
           onClick={close}
         >
