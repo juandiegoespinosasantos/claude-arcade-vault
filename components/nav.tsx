@@ -15,6 +15,7 @@ export function Nav() {
   const bibliotecaActive =
     pathname.startsWith("/biblioteca") || pathname.startsWith("/juego");
   const salonActive = pathname.startsWith("/salon-de-la-fama");
+  const acercaActive = pathname.startsWith("/acerca-de");
   const accesoActive = pathname.startsWith("/acceso");
 
   const close = () => setOpen(false);
@@ -40,6 +41,9 @@ export function Nav() {
             className={salonActive ? "active" : ""}
           >
             Salón de la Fama
+          </Link>
+          <Link href="/acerca-de" className={acercaActive ? "active" : ""}>
+            Acerca de
           </Link>
         </div>
         <div className="spacer"></div>
@@ -96,6 +100,13 @@ export function Nav() {
           onClick={close}
         >
           Salón de la Fama
+        </Link>
+        <Link
+          href="/acerca-de"
+          className={acercaActive ? "active" : ""}
+          onClick={close}
+        >
+          Acerca de
         </Link>
         <Link
           href="/acceso"
