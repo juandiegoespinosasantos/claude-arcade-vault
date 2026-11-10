@@ -1,6 +1,6 @@
 # SPEC 02 — Home page (landing)
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-05
 > **Objective:** Add the landing page from `references/templates/home-about/home.jsx` at `/`, move the game library to `/biblioteca`, and add an "Inicio" link to the navbar.
@@ -88,18 +88,18 @@ Before step 1, read the relevant guides in `node_modules/next/dist/docs/` (per `
 
 ## Acceptance criteria
 
-- [ ] `npm run lint` and `npm run build` finish without errors.
-- [ ] `/` shows the seven sections in order, with the exact Spanish wording of `home.jsx`.
-- [ ] `/biblioteca` shows the SPEC 01 library with 8 cards; filtering and "NO HAY RESULTADOS" still work.
-- [ ] The hero title renders as three lines "EL ARCADE", "CLÁSICO ESTÁ", "DE VUELTA", and 8 floating silhouettes are present and `aria-hidden`.
-- [ ] The feature section has exactly 4 cards; the games rail has exactly 6 mini cards (first 6 of `GAMES`); the ticker has 7 rows; top players has 5 rows with the first three styled gold, silver and bronze; the FAQ has 3 items.
-- [ ] "▶  EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS →" and "INSERTAR MONEDA →" navigate to `/biblioteca`; "✦  CREAR CUENTA" and "EMPEZAR GRATIS →" to `/acceso`; "VER SALÓN →" to `/salon-de-la-fama`; each mini card to `/juego/[id]` of its game.
-- [ ] Sections below the hero start hidden and become visible when scrolled into view; with `prefers-reduced-motion: reduce` they are visible without scrolling.
-- [ ] The navbar shows "Inicio", "Biblioteca", "Salón de la Fama" on desktop and in the mobile panel; "Inicio" is underlined only on `/`; "Biblioteca" is underlined on `/biblioteca` and `/juego/...` but not on `/`.
-- [ ] "VOLVER AL VAULT" (detail page and player modal) goes to `/biblioteca`.
-- [ ] There is no "Acerca de" link and no `/acerca-de` route.
-- [ ] At 375 px the page has no horizontal scroll, feature grid is 1 column, mini rail 2 columns, stats stacked.
-- [ ] No hydration warnings or console errors on `/`, with and without `av_user` in `localStorage`.
+- [x] `npm run lint` and `npm run build` finish without errors.
+- [x] `/` shows the seven sections in order, with the exact Spanish wording of `home.jsx`.
+- [x] `/biblioteca` shows the SPEC 01 library with 8 cards; filtering and "NO HAY RESULTADOS" still work.
+- [x] The hero title renders as three lines "EL ARCADE", "CLÁSICO ESTÁ", "DE VUELTA", and 8 floating silhouettes are present and `aria-hidden`.
+- [x] The feature section has exactly 4 cards; the games rail has exactly 6 mini cards (first 6 of `GAMES`); the ticker has 7 rows; top players has 5 rows with the first three styled gold, silver and bronze; the FAQ has 3 items.
+- [x] "▶  EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS →" and "INSERTAR MONEDA →" navigate to `/biblioteca`; "✦  CREAR CUENTA" and "EMPEZAR GRATIS →" to `/acceso`; "VER SALÓN →" to `/salon-de-la-fama`; each mini card to `/juego/[id]` of its game.
+- [x] Sections below the hero start hidden and become visible when scrolled into view; with `prefers-reduced-motion: reduce` they are visible without scrolling.
+- [x] The navbar shows "Inicio", "Biblioteca", "Salón de la Fama" on desktop and in the mobile panel; "Inicio" is underlined only on `/`; "Biblioteca" is underlined on `/biblioteca` and `/juego/...` but not on `/`.
+- [x] "VOLVER AL VAULT" (detail page and player modal) goes to `/biblioteca`.
+- [x] There is no "Acerca de" link and no `/acerca-de` route.
+- [x] At 375 px the page has no horizontal scroll, feature grid is 1 column, mini rail 2 columns, stats stacked.
+- [x] No hydration warnings or console errors on `/`, with and without `av_user` in `localStorage`.
 
 ---
 
