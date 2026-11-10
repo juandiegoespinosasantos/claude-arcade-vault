@@ -1,6 +1,6 @@
 # SPEC 01 — Visual MVP: all screens from the reference templates
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** None
 > **Date:** 2026-11-04
 > **Objective:** Port the five screens, navbar and footer from `references/templates/` into the Next.js App Router as real routes with mock data, with no real game implementation.
@@ -102,24 +102,24 @@ Before step 1, read the relevant guides in `node_modules/next/dist/docs/` (per `
 
 ## Acceptance criteria
 
-- [ ] `npm run lint` and `npm run build` finish without errors.
-- [ ] The routes `/`, `/juego/bloque-buster`, `/juego/bloque-buster/jugar`, `/acceso` and `/salon-de-la-fama` all respond with their screen and no console errors.
-- [ ] `/juego/id-inexistente` and `/juego/id-inexistente/jugar` show the 404 page.
-- [ ] The library shows 8 cards; typing "caí" leaves only "CAÍDA"; selecting the chip "SHOOTER" leaves only "ROCAS" and "INVASORES"; a query with no match shows "NO HAY RESULTADOS".
-- [ ] Clicking a card or its "JUGAR" button opens `/juego/[id]` of that game.
-- [ ] The detail page shows exactly 10 rows under "MEJORES PUNTUACIONES", with rows 1–3 styled gold, silver and bronze.
-- [ ] In the player, the score increases while running and stops while paused; the button label toggles between "PAUSA" and "REANUDAR".
-- [ ] Clicking "FIN" opens the modal "FIN DEL JUEGO" with the final score; "GUARDAR PUNTUACIÓN" replaces the input with "PUNTUACIÓN GUARDADA" and adds one entry to `localStorage["av_scores"]`.
-- [ ] "JUGAR DE NUEVO" resets score to 0, lives to 3, level to 1 and closes the modal; "VOLVER AL VAULT" goes to `/`; "SALIR" goes to `/juego/[id]`.
-- [ ] In `/acceso`, switching to "CREAR CUENTA" shows the "Correo electrónico" field, and switching back hides it.
-- [ ] Submitting the login form stores `av_user`, redirects to `/`, and the navbar shows the user name instead of "Iniciar Sesión"; reloading keeps the user.
-- [ ] "JUGAR COMO INVITADO" removes `av_user` and redirects to `/`.
-- [ ] The Hall of Fame shows one tab per game (8), a podium with 3 places, and a table with 12 rows with columns RANGO, JUGADOR, PUNTUACIÓN, FECHA.
-- [ ] The "TU MEJOR MARCA" row appears only when `av_user` exists.
-- [ ] The navbar link of the current section has the neon underline (Biblioteca is also active in `/juego/...`).
-- [ ] At a 375 px viewport, the desktop links are hidden, the hamburger opens a slide-in panel, and the card grid is 1 column.
-- [ ] All visible text is in Spanish and matches the template wording.
-- [ ] No hydration warnings appear in the console on any route, with and without `av_user` in `localStorage`.
+- [x] `npm run lint` and `npm run build` finish without errors.
+- [x] The routes `/`, `/juego/bloque-buster`, `/juego/bloque-buster/jugar`, `/acceso` and `/salon-de-la-fama` all respond with their screen and no console errors.
+- [x] `/juego/id-inexistente` and `/juego/id-inexistente/jugar` show the 404 page.
+- [x] The library shows 8 cards; typing "caí" leaves only "CAÍDA"; selecting the chip "SHOOTER" leaves only "ROCAS" and "INVASORES"; a query with no match shows "NO HAY RESULTADOS".
+- [x] Clicking a card or its "JUGAR" button opens `/juego/[id]` of that game.
+- [x] The detail page shows exactly 10 rows under "MEJORES PUNTUACIONES", with rows 1–3 styled gold, silver and bronze.
+- [x] In the player, the score increases while running and stops while paused; the button label toggles between "PAUSA" and "REANUDAR".
+- [x] Clicking "FIN" opens the modal "FIN DEL JUEGO" with the final score; "GUARDAR PUNTUACIÓN" replaces the input with "PUNTUACIÓN GUARDADA" and adds one entry to `localStorage["av_scores"]`.
+- [x] "JUGAR DE NUEVO" resets score to 0, lives to 3, level to 1 and closes the modal; "VOLVER AL VAULT" goes to `/`; "SALIR" goes to `/juego/[id]`.
+- [x] In `/acceso`, switching to "CREAR CUENTA" shows the "Correo electrónico" field, and switching back hides it.
+- [x] Submitting the login form stores `av_user`, redirects to `/`, and the navbar shows the user name instead of "Iniciar Sesión"; reloading keeps the user.
+- [x] "JUGAR COMO INVITADO" removes `av_user` and redirects to `/`.
+- [x] The Hall of Fame shows one tab per game (8), a podium with 3 places, and a table with 12 rows with columns RANGO, JUGADOR, PUNTUACIÓN, FECHA.
+- [x] The "TU MEJOR MARCA" row appears only when `av_user` exists.
+- [x] The navbar link of the current section has the neon underline (Biblioteca is also active in `/juego/...`).
+- [x] At a 375 px viewport, the desktop links are hidden, the hamburger opens a slide-in panel, and the card grid is 1 column.
+- [x] All visible text is in Spanish and matches the template wording.
+- [x] No hydration warnings appear in the console on any route, with and without `av_user` in `localStorage`.
 
 ---
 
