@@ -1,6 +1,6 @@
 # SPEC 04 — Supabase connection
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-24
 > **Objective:** Add the Supabase connection to the project with a browser client, a server client, and their environment variables.
@@ -60,12 +60,12 @@ Before step 1, read the relevant guides in `node_modules/next/dist/docs/` (per `
 
 ## Acceptance criteria
 
-- [ ] `npm run lint` and `npm run build` finish without errors.
-- [ ] `package.json` lists `@supabase/supabase-js` and `@supabase/ssr`.
-- [ ] `lib/supabase/client.ts` and `lib/supabase/server.ts` each export a `createClient` function.
-- [ ] `.env.example` is tracked and contains both variable names with placeholder values only.
-- [ ] `.env.local` is not tracked and no real URL or key appears in any tracked file.
-- [ ] No existing page, component or route was modified.
+- [x] `npm run lint` and `npm run build` finish without errors.
+- [x] `package.json` lists `@supabase/supabase-js` and `@supabase/ssr`.
+- [x] `lib/supabase/client.ts` and `lib/supabase/server.ts` each export a `createClient` function.
+- [x] `.env.example` is tracked and contains both variable names with placeholder values only.
+- [x] `.env.local` is not tracked and no real URL or key appears in any tracked file.
+- [x] No existing page, component or route was modified.
 
 ---
 
