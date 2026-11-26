@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { AsteroidsCanvas } from "@/components/asteroids/asteroids-canvas";
 import { useAuth } from "@/components/auth-provider";
 import type { Game } from "@/lib/games";
 
@@ -12,29 +13,51 @@ export function GamePlayer({ game }: { game: Game }) {
   const { user, saveScore } = useAuth();
   const [score, setScore] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [over, setOver] = useState(false);
+  // "quit" = ended with FIN; "died" = the engine reported game over.
+  const [over, setOver] = useState<"quit" | "died" | null>(null);
+  // Lives and level reported by a real engine.
+  const [vitals, setVitals] = useState({ lives: LIVES, level: 1 });
+  // Each run is a new engine instance.
+  const [run, setRun] = useState(0);
   // null = not edited yet; falls back to the logged-in user (read after mount) or guest.
   const [nameInput, setNameInput] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
 
   const name = nameInput ?? user?.name ?? "INVITADO";
-  const level = 1 + Math.floor(score / POINTS_PER_LEVEL);
+  const isReal = game.engine === "asteroids";
+  const lives = isReal ? vitals.lives : LIVES;
+  const level = isReal
+    ? vitals.level
+    : 1 + Math.floor(score / POINTS_PER_LEVEL);
 
-  // Simulated score ticker: no real game yet. Starts in an effect to avoid hydration mismatch.
+  // Simulated score ticker for games without a real engine. Starts in an effect to avoid hydration mismatch.
   useEffect(() => {
-    if (over || paused) return;
+    if (isReal || over || paused) return;
     const t = setInterval(
       () => setScore((s) => s + Math.floor(10 + Math.random() * 90)),
       220,
     );
     return () => clearInterval(t);
-  }, [over, paused]);
+  }, [isReal, over, paused]);
+
+  const resetRun = () => {
+    setPaused(false);
+    setOver(null);
+    setSaved(false);
+  };
 
   const restart = () => {
     setScore(0);
-    setPaused(false);
-    setOver(false);
-    setSaved(false);
+    setRun((r) => r + 1);
+    resetRun();
+  };
+
+  // The guards stop a focused button from acting behind the game-over modal.
+  const togglePause = () => {
+    if (!over) setPaused((p) => !p);
+  };
+  const quit = () => {
+    if (!over) setOver("quit");
   };
 
   const handleSave = () => {
@@ -58,7 +81,9 @@ export function GamePlayer({ game }: { game: Game }) {
           </div>
           <div className="hud-stat lives">
             <div className="l">Vidas</div>
-            <div className="v">{"♥ ".repeat(LIVES).trim()}</div>
+            <div className="v">
+              {lives > 0 ? "♥ ".repeat(lives).trim() : "—"}
+            </div>
           </div>
           <div className="hud-stat level">
             <div className="l">Nivel</div>
@@ -66,10 +91,10 @@ export function GamePlayer({ game }: { game: Game }) {
           </div>
         </div>
         <div className="hud-actions">
-          <button className="btn yellow" onClick={() => setPaused((p) => !p)}>
+          <button className="btn yellow" onClick={togglePause}>
             {paused ? "REANUDAR" : "PAUSA"}
           </button>
-          <button className="btn magenta" onClick={() => setOver(true)}>
+          <button className="btn magenta" onClick={quit}>
             FIN
           </button>
           <Link href={`/juego/${game.id}`} className="btn ghost">
@@ -80,13 +105,30 @@ export function GamePlayer({ game }: { game: Game }) {
 
       <div className="crt">
         <div className="crt-screen">
-          <div className="game-arena">
-            <div className="grid-floor"></div>
-            <div className="enemy e1"></div>
-            <div className="enemy e2"></div>
-            <div className="enemy e3"></div>
-            <div className="player-ship"></div>
-          </div>
+          {isReal ? (
+            <AsteroidsCanvas
+              key={run}
+              // After "died" the engine keeps running so the explosion finishes.
+              paused={paused || over === "quit"}
+              onStart={resetRun}
+              onStats={(stats) => {
+                setScore(stats.score);
+                setVitals({ lives: stats.lives, level: stats.level });
+              }}
+              onGameOver={(finalScore) => {
+                setScore(finalScore);
+                setOver("died");
+              }}
+            />
+          ) : (
+            <div className="game-arena">
+              <div className="grid-floor"></div>
+              <div className="enemy e1"></div>
+              <div className="enemy e2"></div>
+              <div className="enemy e3"></div>
+              <div className="player-ship"></div>
+            </div>
+          )}
           {paused && (
             <div
               className="crt-content"

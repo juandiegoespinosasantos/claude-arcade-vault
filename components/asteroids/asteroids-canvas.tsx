@@ -7,23 +7,32 @@ import {
   type AsteroidsEngine,
 } from "@/lib/asteroids/engine";
 
-type Props = AsteroidsCallbacks & { paused: boolean };
+type Props = AsteroidsCallbacks & {
+  paused: boolean;
+  onStart: () => void; // a fresh engine is about to start a new game
+};
 
 /** One mount is one game: change the React `key` to start a new one. */
-export function AsteroidsCanvas({ paused, onStats, onGameOver }: Props) {
+export function AsteroidsCanvas({
+  paused,
+  onStart,
+  onStats,
+  onGameOver,
+}: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<AsteroidsEngine | null>(null);
-  const callbacksRef = useRef<AsteroidsCallbacks>({ onStats, onGameOver });
+  const callbacksRef = useRef({ onStart, onStats, onGameOver });
 
   // Keeps the latest callbacks without recreating the engine.
   useLayoutEffect(() => {
-    callbacksRef.current = { onStats, onGameOver };
+    callbacksRef.current = { onStart, onStats, onGameOver };
   });
 
   // Must stay above the pause effect, which needs the engine to exist.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    callbacksRef.current.onStart();
     const engine = createAsteroids(canvas, {
       onStats: (stats) => callbacksRef.current.onStats(stats),
       onGameOver: (score) => callbacksRef.current.onGameOver(score),
