@@ -15,6 +15,12 @@ export interface Game {
   controls?: string; // detail page input tag; defaults to "TECLADO / TÁCTIL"
 }
 
+// A catalog entry read from the database. `best` and `plays` come from the saved scores.
+export interface GameWithStats extends Omit<Game, "best" | "plays"> {
+  best: number;
+  plays: number;
+}
+
 export const GAMES: Game[] = [
   {
     id: "asteroids",

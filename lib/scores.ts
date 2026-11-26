@@ -1,8 +1,19 @@
 export interface ScoreRow {
+  id: number;
   rank: number;
   name: string;
   score: number;
-  date: string; // "DD/MM/2026"
+  date: string; // "DD/MM/YYYY", formatted in UTC
+}
+
+// UTC on both sides, so server and browser never disagree.
+export function formatScoreDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 }
 
 const PLAYERS = [
@@ -28,6 +39,7 @@ export function seededScores(seed: number, count = 12): ScoreRow[] {
     const day = String(1 + Math.floor(rand() * 28)).padStart(2, "0");
     const mon = String(1 + Math.floor(rand() * 12)).padStart(2, "0");
     rows.push({
+      id: i + 1,
       rank: i + 1,
       name,
       score: Math.max(score, 1000),

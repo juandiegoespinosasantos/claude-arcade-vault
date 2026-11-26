@@ -973,6 +973,14 @@ a { color: inherit; text-decoration: none; }
 }
 @keyframes spinpix { to { transform: rotate(360deg); } }
 
+/* ===== DATA ERROR ===== */
+.data-error {
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  max-width: 560px; margin: 32px auto; padding: 36px 20px;
+  border: 1px dashed var(--magenta); background: var(--bg-2); text-align: center;
+}
+.data-error p { margin: 0; font-size: 11px; line-height: 1.8; }
+
 /* ===== HOME PAGE ===== */
 .home { position: relative; }
 
