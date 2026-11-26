@@ -11,9 +11,24 @@ export interface Game {
   color: GameColor;
   best: number;
   plays: string;
+  engine?: "asteroids"; // present only for games with a real implementation
+  controls?: string; // detail page input tag; defaults to "TECLADO / TÁCTIL"
 }
 
 export const GAMES: Game[] = [
+  {
+    id: "asteroids",
+    title: "ASTEROIDS",
+    short: "Sobrevive al campo de asteroides y dispara en 3x.",
+    long: "Pilota una nave vectorial en un campo de asteroides sin bordes. Rota con ← y →, propulsa con ↑ y dispara con ESPACIO; cada roca se parte en fragmentos más pequeños. Atrapa el potenciador 3x para disparar en triple ráfaga.",
+    cat: "SHOOTER",
+    cover: "cover-asteroids",
+    color: "cyan",
+    best: 32600,
+    plays: "0.9K",
+    engine: "asteroids",
+    controls: "TECLADO",
+  },
   {
     id: "bloque-buster",
     title: "BLOQUE BUSTER",

@@ -37,7 +37,7 @@ async function GameDetail({ params }: { params: Params }) {
           <div className="detail-tags">
             <span>{game.cat}</span>
             <span>1 JUGADOR</span>
-            <span>TECLADO / TÁCTIL</span>
+            <span>{game.controls ?? "TECLADO / TÁCTIL"}</span>
             <span>RETRO 1985</span>
           </div>
           <h2 className="neon-cyan">{game.title}</h2>

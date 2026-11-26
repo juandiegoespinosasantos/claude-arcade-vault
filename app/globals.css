@@ -480,6 +480,14 @@ a { color: inherit; text-decoration: none; }
   filter: drop-shadow(0 0 6px rgba(0,255,136,0.6));
 }
 
+.cover-asteroids { background: radial-gradient(circle at 42% 62%, #001c2e, #000 70%); }
+.cover-asteroids::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='xMidYMid slice' fill='none' stroke-width='3' stroke-linejoin='round'><g stroke='%23ff006e'><path d='M268 44 306 40 338 66 322 82 340 108 306 134 272 122 250 96 262 78 248 62Z'/><path d='M288 202 314 196 332 218 318 232 326 248 298 258 274 240 280 224Z'/><path d='M84 66 102 60 116 76 108 94 88 92 76 80Z'/></g><g transform='translate(168 188) rotate(-35) scale(2.6)' stroke='%2300f5ff'><path d='M20 0 -12 -9 -7 0 -12 9Z' stroke-width='1.4'/><path d='M-9 -4 -22 0 -9 4' stroke='%23f5ff00' stroke-width='1.2'/></g><g fill='%23f5ff00'><circle cx='234' cy='115' r='4'/><circle cx='247' cy='133' r='4'/><circle cx='255' cy='152' r='4'/></g></svg>") center / cover no-repeat;
+  filter: drop-shadow(0 0 6px rgba(0,245,255,0.45));
+}
+
 .cover-rocas { background: radial-gradient(circle at 50% 50%, #0a0a30, #000); }
 .cover-rocas::after {
   content: "";
@@ -675,6 +683,13 @@ a { color: inherit; text-decoration: none; }
 .crt-bottom .led::before {
   content: ""; width: 8px; height: 8px; border-radius: 50%;
   background: var(--green); box-shadow: 0 0 6px var(--green);
+}
+
+/* real in-screen game: fixed internal resolution, scaled to the 4:3 screen */
+.game-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
 }
 
 /* fake in-screen game */
