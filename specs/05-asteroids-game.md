@@ -1,6 +1,6 @@
 # SPEC 05 — Asteroids: first playable game
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01, SPEC 02
 > **Date:** 2026-11-25
 > **Objective:** Port the game in `references/started-games/02-asteroids` to a native TypeScript canvas engine and make it playable in the app as a new catalog entry, ASTEROIDS, wired to the existing player HUD and end-of-game modal.
@@ -124,31 +124,31 @@ Before step 1, read the relevant guides in `node_modules/next/dist/docs/` (per `
 
 ## Acceptance criteria
 
-- [ ] `npm run lint` and `npm run build` finish without errors.
-- [ ] The library shows 9 cards with "ASTEROIDS" first; the chip "SHOOTER" leaves "ASTEROIDS", "INVASORES" and "ROCAS".
-- [ ] The home page preview shows 6 cards with "ASTEROIDS" first.
-- [ ] The Hall of Fame shows 9 tabs and opens on "ASTEROIDS".
-- [ ] `/juego/asteroids` shows the new cover, the description and the tag "TECLADO"; the other detail pages still show "TECLADO / TÁCTIL".
-- [ ] `/juego/asteroids/jugar` starts a game inside the CRT screen with score 0, 3 lives and level 01.
-- [ ] ← and → rotate the ship, ↑ thrusts and Space shoots, and none of them scrolls the page.
-- [ ] Destroying a large, medium and small asteroid adds exactly 20, 50 and 100 points to the HUD.
-- [ ] Large and medium asteroids split in two; small ones disappear.
-- [ ] Picking up the 3x power-up fires three bullets per shot for 5 seconds and shows the countdown on the canvas.
-- [ ] A collision removes one life from the HUD and the ship respawns blinking after 2 seconds.
-- [ ] Clearing all asteroids raises the level by 1 and spawns 3 + level asteroids.
-- [ ] Losing the third life opens "FIN DEL JUEGO" with the same score as the HUD.
-- [ ] The canvas shows no score, level, life icons or "GAME OVER" text.
-- [ ] "PAUSA" freezes the game and shows "EN PAUSA"; "REANUDAR" continues from the same positions with no jump.
-- [ ] Pressing Space right after clicking "PAUSA" or "REANUDAR" does not toggle the button while the game is running.
-- [ ] "FIN" opens the modal with the current score and the ship no longer responds to the keyboard.
-- [ ] The name input accepts spaces and arrow keys while the modal is open, and Space does not restart the game.
-- [ ] "GUARDAR PUNTUACIÓN" shows "PUNTUACIÓN GUARDADA" and adds one `av_scores` entry with `game: "asteroids"` and the final score.
-- [ ] "JUGAR DE NUEVO" starts a new game with score 0, 3 lives, level 01 and no modal.
-- [ ] After "SALIR" and returning to the player, a new game starts with no modal, and the ship moves at normal speed (no duplicated loops or listeners).
-- [ ] After leaving the player, the arrow keys and Space behave normally on other pages.
-- [ ] `/juego/rocas/jugar` still shows the simulated ticker and decorative arena.
-- [ ] At 375 px the canvas fits the CRT screen with no horizontal scroll.
-- [ ] No console errors or hydration warnings on any of the routes above.
+- [x] `npm run lint` and `npm run build` finish without errors.
+- [x] The library shows 9 cards with "ASTEROIDS" first; the chip "SHOOTER" leaves "ASTEROIDS", "INVASORES" and "ROCAS".
+- [x] The home page preview shows 6 cards with "ASTEROIDS" first.
+- [x] The Hall of Fame shows 9 tabs and opens on "ASTEROIDS".
+- [x] `/juego/asteroids` shows the new cover, the description and the tag "TECLADO"; the other detail pages still show "TECLADO / TÁCTIL".
+- [x] `/juego/asteroids/jugar` starts a game inside the CRT screen with score 0, 3 lives and level 01.
+- [x] ← and → rotate the ship, ↑ thrusts and Space shoots, and none of them scrolls the page.
+- [x] Destroying a large, medium and small asteroid adds exactly 20, 50 and 100 points to the HUD.
+- [x] Large and medium asteroids split in two; small ones disappear.
+- [x] Picking up the 3x power-up fires three bullets per shot for 5 seconds and shows the countdown on the canvas.
+- [x] A collision removes one life from the HUD and the ship respawns blinking after 2 seconds.
+- [x] Clearing all asteroids raises the level by 1 and spawns 3 + level asteroids.
+- [x] Losing the third life opens "FIN DEL JUEGO" with the same score as the HUD.
+- [x] The canvas shows no score, level, life icons or "GAME OVER" text.
+- [x] "PAUSA" freezes the game and shows "EN PAUSA"; "REANUDAR" continues from the same positions with no jump.
+- [x] Pressing Space right after clicking "PAUSA" or "REANUDAR" does not toggle the button while the game is running.
+- [x] "FIN" opens the modal with the current score and the ship no longer responds to the keyboard.
+- [x] The name input accepts spaces and arrow keys while the modal is open, and Space does not restart the game.
+- [x] "GUARDAR PUNTUACIÓN" shows "PUNTUACIÓN GUARDADA" and adds one `av_scores` entry with `game: "asteroids"` and the final score.
+- [x] "JUGAR DE NUEVO" starts a new game with score 0, 3 lives, level 01 and no modal.
+- [x] After "SALIR" and returning to the player, a new game starts with no modal, and the ship moves at normal speed (no duplicated loops or listeners).
+- [x] After leaving the player, the arrow keys and Space behave normally on other pages.
+- [x] `/juego/rocas/jugar` still shows the simulated ticker and decorative arena.
+- [x] At 375 px the canvas fits the CRT screen with no horizontal scroll.
+- [x] No console errors or hydration warnings on any of the routes above.
 
 ---
 

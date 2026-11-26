@@ -1,6 +1,6 @@
 # SPEC 04 — Supabase connection
 
-> **Status:** Approved
+> **Status:** Implemented
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-24
 > **Objective:** Add the Supabase connection to the project with a browser client, a server client, and their environment variables.
