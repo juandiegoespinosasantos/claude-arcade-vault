@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DataErrorBoundary } from "@/components/data-error";
 import { getGame, getGames } from "@/lib/games-data";
-import { seededScores } from "@/lib/scores";
+import { getTopScores } from "@/lib/scores-data";
 import { Leaderboard } from "@/components/leaderboard";
 
 export async function generateStaticParams() {
@@ -28,8 +28,6 @@ async function GameDetail({ params }: { params: Params }) {
   const { id } = await params;
   const game = await getGame(id);
   if (!game) notFound();
-
-  const scores = seededScores(id.length * 17 + 3, 10);
 
   return (
     <div className="av-detail fade-in">
@@ -82,8 +80,16 @@ async function GameDetail({ params }: { params: Params }) {
       </div>
 
       <aside>
-        <Leaderboard rows={scores} />
+        <DataErrorBoundary>
+          <Suspense fallback={<div className="spinner" aria-label="Cargando" />}>
+            <TopScores gameId={game.id} />
+          </Suspense>
+        </DataErrorBoundary>
       </aside>
     </div>
   );
+}
+
+async function TopScores({ gameId }: { gameId: string }) {
+  return <Leaderboard rows={await getTopScores(gameId, 10)} />;
 }

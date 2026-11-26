@@ -4,9 +4,10 @@ export function Leaderboard({ rows }: { rows: ScoreRow[] }) {
   return (
     <div className="leaderboard">
       <h3>MEJORES PUNTUACIONES</h3>
+      {rows.length === 0 && <p className="lb-empty">AÚN NO HAY PUNTUACIONES</p>}
       {rows.map((r, i) => (
         <div
-          key={r.name}
+          key={r.id}
           className={
             "lb-row" + (i === 0 ? " top1" : i === 1 ? " top2" : i === 2 ? " top3" : "")
           }
