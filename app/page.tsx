@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { DataErrorBoundary } from "@/components/data-error";
 import { FeatureIcon } from "@/components/home/feature-icon";
 import { FloatingSilhouettes } from "@/components/home/floating-silhouettes";
 import { Reveal } from "@/components/home/reveal";
-import { GAMES } from "@/lib/games";
+import { getGames } from "@/lib/games-data";
 import {
   FAQ,
   FEATURES,
@@ -12,6 +14,26 @@ import {
 } from "@/lib/home";
 
 const fmt = (n: number) => n.toLocaleString("es-ES");
+
+async function GamesPreview() {
+  const games = await getGames();
+
+  return (
+    <div className="mini-rail">
+      {games.slice(0, 6).map((g) => (
+        <Link key={g.id} href={`/juego/${g.id}`} className="mini-card">
+          <div className="mini-cover">
+            <div className={"cover-bg " + g.cover}></div>
+          </div>
+          <div className="mini-meta">
+            <div className="mini-title">{g.title}</div>
+            <div className="mini-cat">{g.cat}</div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -77,19 +99,11 @@ export default function Home() {
           <h2 className="section-title">JUEGOS DISPONIBLES AHORA</h2>
           <div className="section-rule"></div>
         </div>
-        <div className="mini-rail">
-          {GAMES.slice(0, 6).map((g) => (
-            <Link key={g.id} href={`/juego/${g.id}`} className="mini-card">
-              <div className="mini-cover">
-                <div className={"cover-bg " + g.cover}></div>
-              </div>
-              <div className="mini-meta">
-                <div className="mini-title">{g.title}</div>
-                <div className="mini-cat">{g.cat}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <DataErrorBoundary>
+          <Suspense fallback={<div className="spinner" aria-label="Cargando" />}>
+            <GamesPreview />
+          </Suspense>
+        </DataErrorBoundary>
         <div style={{ textAlign: "center", marginTop: 24 }}>
           <Link href="/biblioteca" className="btn lg">
             VER TODOS LOS JUEGOS →

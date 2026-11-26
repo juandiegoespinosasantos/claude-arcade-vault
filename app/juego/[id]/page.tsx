@@ -1,12 +1,14 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { GAMES, getGame } from "@/lib/games";
+import { DataErrorBoundary } from "@/components/data-error";
+import { getGame, getGames } from "@/lib/games-data";
 import { seededScores } from "@/lib/scores";
 import { Leaderboard } from "@/components/leaderboard";
 
-export function generateStaticParams() {
-  return GAMES.map((g) => ({ id: g.id }));
+export async function generateStaticParams() {
+  const games = await getGames();
+  return games.map((g) => ({ id: g.id }));
 }
 
 type Params = Promise<{ id: string }>;
@@ -14,15 +16,17 @@ type Params = Promise<{ id: string }>;
 // `params` is only read inside <Suspense> so the route has an instant static shell.
 export default function GameDetailPage({ params }: { params: Params }) {
   return (
-    <Suspense fallback={<div className="spinner" aria-label="Cargando" />}>
-      <GameDetail params={params} />
-    </Suspense>
+    <DataErrorBoundary>
+      <Suspense fallback={<div className="spinner" aria-label="Cargando" />}>
+        <GameDetail params={params} />
+      </Suspense>
+    </DataErrorBoundary>
   );
 }
 
 async function GameDetail({ params }: { params: Params }) {
   const { id } = await params;
-  const game = getGame(id);
+  const game = await getGame(id);
   if (!game) notFound();
 
   const scores = seededScores(id.length * 17 + 3, 10);
@@ -45,7 +49,7 @@ async function GameDetail({ params }: { params: Params }) {
           <div className="stat-strip">
             <div>
               <div className="l">Partidas</div>
-              <div className="v">{game.plays}</div>
+              <div className="v">{game.plays.toLocaleString("es-ES")}</div>
             </div>
             <div>
               <div className="l">Mejor global</div>
@@ -53,7 +57,7 @@ async function GameDetail({ params }: { params: Params }) {
                 className="v"
                 style={{ color: "var(--magenta)", textShadow: "0 0 6px rgba(255,0,110,0.5)" }}
               >
-                {game.best.toLocaleString("es-ES")}
+                {game.plays > 0 ? game.best.toLocaleString("es-ES") : "—"}
               </div>
             </div>
             <div>

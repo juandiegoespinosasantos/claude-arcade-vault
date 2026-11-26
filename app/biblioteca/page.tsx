@@ -1,4 +1,11 @@
+import { Suspense } from "react";
+import { DataErrorBoundary } from "@/components/data-error";
 import { Library } from "@/components/library";
+import { getGames } from "@/lib/games-data";
+
+async function Catalog() {
+  return <Library games={await getGames()} />;
+}
 
 export default function BibliotecaPage() {
   return (
@@ -9,7 +16,11 @@ export default function BibliotecaPage() {
           INSERTA UNA MONEDA PARA JUGAR <span className="blink">_</span>
         </div>
       </section>
-      <Library />
+      <DataErrorBoundary>
+        <Suspense fallback={<div className="spinner" aria-label="Cargando" />}>
+          <Catalog />
+        </Suspense>
+      </DataErrorBoundary>
     </div>
   );
 }

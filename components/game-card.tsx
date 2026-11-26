@@ -3,9 +3,9 @@
 import { useRef, type MouseEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { Game } from "@/lib/games";
+import type { GameWithStats } from "@/lib/games";
 
-export function GameCard({ game }: { game: Game }) {
+export function GameCard({ game }: { game: GameWithStats }) {
   const tiltRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const href = `/juego/${game.id}`;
@@ -40,7 +40,7 @@ export function GameCard({ game }: { game: Game }) {
         <div className="row">
           <div className="score-badge">
             <span>MEJOR PUNTUACIÓN</span>
-            <b>{game.best.toLocaleString("es-ES")}</b>
+            <b>{game.plays > 0 ? game.best.toLocaleString("es-ES") : "—"}</b>
           </div>
           <Link
             href={href}

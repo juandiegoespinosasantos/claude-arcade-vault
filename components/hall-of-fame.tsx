@@ -3,14 +3,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/auth-provider";
-import { GAMES, getGame } from "@/lib/games";
+import type { Game } from "@/lib/games";
 import { seededScores } from "@/lib/scores";
 
-export function HallOfFame() {
+export function HallOfFame({ games }: { games: Game[] }) {
   const { user } = useAuth();
-  const [tab, setTab] = useState(GAMES[0].id);
+  const [tab, setTab] = useState(games[0].id);
   const rows = useMemo(() => seededScores(tab.length * 23 + 7, 12), [tab]);
-  const game = getGame(tab) ?? GAMES[0];
+  const game = games.find((g) => g.id === tab) ?? games[0];
   const youRank = 8 + (tab.length % 4);
   const youScore = rows[5].score - 2400;
 
@@ -24,7 +24,7 @@ export function HallOfFame() {
       </div>
 
       <div className="hall-tabs">
-        {GAMES.map((g) => (
+        {games.map((g) => (
           <button
             key={g.id}
             className={"chip" + (tab === g.id ? " active" : "")}
